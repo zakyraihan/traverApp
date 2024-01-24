@@ -224,7 +224,7 @@ class Introduction extends StatelessWidget {
             size: const Size.square(10.0),
             activeSize: const Size(50.0, 10.0),
             activeColor: const Color.fromARGB(255, 224, 214, 214),
-            color: Colors.white,
+            color: const Color.fromRGBO(255, 255, 255, 1),
             spacing: const EdgeInsets.symmetric(horizontal: 3.0),
             activeShape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0)),
