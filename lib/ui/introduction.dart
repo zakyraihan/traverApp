@@ -210,8 +210,9 @@ class Introduction extends StatelessWidget {
             ),
           ],
           showSkipButton: true,
-          skip: const Text('Skip', style: TextStyle(color: Colors.white)),
-          next: const Text('Next', style: TextStyle(color: Colors.white)),
+          skip: const Icon(Icons.arrow_back, color: Colors.white, size: 25),
+          next: const Text('Skip',
+              style: TextStyle(color: Colors.white, fontSize: 17)),
           done: const Text(
             'Done',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
