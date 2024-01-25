@@ -13,11 +13,11 @@ class SplashScreen extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.9,
               child: Center(
-                child: Image.asset('assets/img/traver.png', height: 120),
+                child: Image.asset('assets/img/traver.png'),
               ),
             ),
             const Center(
-              child: Text('version 1.1.0'),
+              child: Text('Version 1.1.0'),
             )
           ],
         ),
