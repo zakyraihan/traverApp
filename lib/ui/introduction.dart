@@ -207,10 +207,10 @@ class Introduction extends StatelessWidget {
             'Done',
             style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
           ),
-          onDone: () =>
-              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false),
-          onSkip: () =>
-              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false),
+          onDone: () => Navigator.pushNamedAndRemoveUntil(
+              context, '/login', (route) => true),
+          onSkip: () => Navigator.pushNamedAndRemoveUntil(
+              context, '/login', (route) => true),
           dotsDecorator: DotsDecorator(
             size: const Size.square(10.0),
             activeSize: const Size(50.0, 10.0),

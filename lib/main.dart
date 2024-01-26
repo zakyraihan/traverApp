@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/ui/home.dart';
 import 'package:travel_app/ui/introduction.dart';
+import 'package:travel_app/ui/login.dart';
+import 'package:travel_app/ui/register.dart';
 import 'package:travel_app/ui/splashscreen.dart';
 
 void main() {
@@ -25,6 +27,8 @@ class MyApp extends StatelessWidget {
               '/': (context) => const Home(),
               '/splash': (context) => const SplashScreen(),
               '/intro': (context) => const Introduction(),
+              '/register': (context) => const Register(),
+              '/login': (context) => const Login(),
             },
           );
         }
