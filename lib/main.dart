@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/ui/home.dart';
 import 'package:travel_app/ui/introduction.dart';
+import 'package:travel_app/ui/login.dart';
+import 'package:travel_app/ui/register.dart';
 import 'package:travel_app/ui/splashscreen.dart';
 
 void main() {
@@ -19,11 +22,13 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'flutter demo',
             debugShowCheckedModeBanner: false,
-            initialRoute: '/',
+            initialRoute: '/intro',
             routes: {
-              '/': (context) => const Introduction(),
+              '/': (context) => const Home(),
+              '/intro': (context) => const Introduction(),
               '/splash': (context) => const SplashScreen(),
-              // '/intro': (context) => const Introduction()
+              '/login': (context) => const Login(),
+              '/register': (context) => const Register()
             },
           );
         }
