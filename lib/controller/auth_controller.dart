@@ -49,7 +49,6 @@ class AuthController {
       if (response.statusCode == 201) {
         log(response.body);
         Login dataRes = loginFromJson(response.body.toString());
-
         return dataRes;
       }
     } catch (e) {
