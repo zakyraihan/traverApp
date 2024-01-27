@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -27,6 +28,32 @@ class AuthController {
       return dataRes;
     } else {
       return null;
+    }
+  }
+
+  Future loginProses(String email, String password) async {
+    String url = '${dotenv.env['IP']}/auth/login';
+    Uri urlData = Uri.parse(url);
+
+    Map data = {
+      "email": email,
+      "password": password,
+    };
+
+    var body = json.encode(data);
+
+    final response = await http.post(urlData,
+        headers: {"Content-Type": "application/json"}, body: body);
+
+    try {
+      if (response.statusCode == 201) {
+        log(response.body);
+        Login dataRes = loginFromJson(response.body.toString());
+
+        return dataRes;
+      }
+    } catch (e) {
+      log('Error -> $e');
     }
   }
 }

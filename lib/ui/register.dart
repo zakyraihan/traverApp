@@ -21,7 +21,7 @@ class _RegisterState extends State<Register> {
   bool loading = false;
   saveRegis() {
     loading = true;
-    var dt = AuthController()
+    AuthController()
         .registerProses(
             name.text, email.text, password.text, konfirmasiPassword.text)
         .then((value) {

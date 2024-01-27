@@ -1,3 +1,4 @@
 import 'dart:convert';
 
-part 'register.dart';
+part 'register_model.dart';
+part 'login_model.dart';
