@@ -1,4 +1,8 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_app/controller/auth_controller.dart';
+import 'package:travel_app/widget/my_button.dart';
+import 'package:travel_app/widget/my_textfield.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -9,6 +13,39 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   bool isObsecure = true;
+
+  TextEditingController name = TextEditingController(),
+      email = TextEditingController(),
+      password = TextEditingController(),
+      konfirmasiPassword = TextEditingController();
+  bool loading = false;
+  saveRegis() {
+    loading = true;
+    var dt = AuthController()
+        .registerProses(
+            name.text, email.text, password.text, konfirmasiPassword.text)
+        .then((value) {
+      if (value != null) {
+        loading = false;
+        AwesomeDialog(
+          context: context,
+          title: "Success",
+          desc: "Register Berhasil",
+          dialogType: DialogType.success,
+          btnOkOnPress: () => Navigator.pushNamedAndRemoveUntil(
+              context, "/login", (route) => false),
+        ).show();
+      } else {
+        loading = false;
+        AwesomeDialog(
+          context: context,
+          title: "Failed",
+          desc: "Register Gagal",
+          dialogType: DialogType.error,
+        ).show();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,138 +67,67 @@ class _RegisterState extends State<Register> {
                     width: 200,
                   ),
                 ),
-                Container(
-                  child: const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Name',
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.yellow,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
+                MyTextField(
+                  text: 'Name',
+                  controller: name,
+                ),
+                const SizedBox(height: 25),
+                MyTextField(
+                  text: 'Email',
+                  controller: email,
+                ),
+                const SizedBox(height: 25),
+                MyTextField(
+                  text: 'Password',
+                  controller: password,
+                  obscureText: isObsecure,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isObsecure = !isObsecure;
+                      });
+                    },
+                    icon: isObsecure
+                        ? const Icon(Icons.visibility_off)
+                        : const Icon(Icons.visibility),
                   ),
                 ),
                 const SizedBox(height: 25),
-                Container(
-                  child: const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.yellow,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ),
+                MyTextField(
+                  text: 'Konfirmasi Password',
+                  controller: konfirmasiPassword,
+                  obscureText: true,
                 ),
                 const SizedBox(height: 25),
-                Container(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      focusedBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.yellow,
-                        ),
-                      ),
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isObsecure = !isObsecure;
-                          });
-                        },
-                        icon: isObsecure
-                            ? const Icon(Icons.visibility_off)
-                            : const Icon(Icons.visibility),
-                      ),
-                    ),
-                    obscureText: isObsecure,
-                  ),
-                ),
-                const SizedBox(height: 25),
-                Container(
-                  child: const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Konfirmasi Password',
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.yellow,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                    obscureText: true,
-                  ),
-                ),
-                const SizedBox(height: 25),
-                ElevatedButton(
-                  style: ButtonStyle(
+                MyButtonWidget(
                     minimumSize: MaterialStatePropertyAll(Size(lebar * 10, 60)),
-                    shape: const MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
+                    child: const Text(
+                      'Back To Login',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                      context, '/login', (route) => false),
-                  child: const Text(
-                    'Back To Login',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/login', (route) => false);
+                    }),
                 const SizedBox(height: 18),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        const MaterialStatePropertyAll(Colors.yellow),
-                    minimumSize: MaterialStatePropertyAll(Size(lebar * 10, 60)),
-                    shape: const MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Submit',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
+                MyButtonWidget(
+                  onPressed: () => saveRegis(),
+                  backgroundColor:
+                      const MaterialStatePropertyAll(Colors.yellow),
+                  minimumSize: MaterialStatePropertyAll(Size(lebar * 10, 60)),
+                  child: loading
+                      ? const CircularProgressIndicator()
+                      : const Text(
+                          'Submit',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold),
+                        ),
+                )
               ],
             ),
           ),

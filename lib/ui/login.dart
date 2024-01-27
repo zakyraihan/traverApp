@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/widget/my_button.dart';
+import 'package:travel_app/widget/my_textfield.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -30,54 +32,22 @@ class _LoginState extends State<Login> {
                     width: 200,
                   ),
                 ),
-                Container(
-                  child: const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.yellow,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ),
+                MyTextField(
+                  text: 'Email',
                 ),
                 const SizedBox(height: 25),
-                Container(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      focusedBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.yellow,
-                        ),
-                      ),
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isObsecure = !isObsecure;
-                          });
-                        },
-                        icon: isObsecure
-                            ? const Icon(Icons.visibility_off)
-                            : const Icon(Icons.visibility),
-                      ),
-                    ),
-                    obscureText: isObsecure,
+                MyTextField(
+                  text: 'password',
+                  obscureText: isObsecure,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isObsecure = !isObsecure;
+                      });
+                    },
+                    icon: isObsecure
+                        ? const Icon(Icons.visibility_off)
+                        : const Icon(Icons.visibility),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -100,15 +70,7 @@ class _LoginState extends State<Login> {
                   ],
                 ),
                 const SizedBox(height: 25),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    minimumSize: MaterialStatePropertyAll(Size(lebar * 10, 60)),
-                    shape: const MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                    ),
-                  ),
+                MyButtonWidget(
                   onPressed: () => Navigator.pushNamed(context, '/register'),
                   child: const Text(
                     'Create Account',
@@ -119,20 +81,12 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 const SizedBox(height: 18),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        const MaterialStatePropertyAll(Colors.yellow),
-                    minimumSize: MaterialStatePropertyAll(Size(lebar * 10, 60)),
-                    shape: const MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                    ),
-                  ),
+                MyButtonWidget(
+                  backgroundColor:
+                      const MaterialStatePropertyAll(Colors.yellow),
                   onPressed: () {},
                   child: const Text(
-                    'Sign In',
+                    'Login',
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 19,
