@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/widget/text_field_widget.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -30,55 +31,23 @@ class _LoginState extends State<Login> {
                     width: 200,
                   ),
                 ),
-                Container(
-                  child: const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.yellow,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ),
+                TextFieldWidget(
+                  text: 'Email',
                 ),
                 const SizedBox(height: 25),
-                Container(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      focusedBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.yellow,
-                        ),
-                      ),
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isObsecure = !isObsecure;
-                          });
-                        },
-                        icon: isObsecure
-                            ? const Icon(Icons.visibility_off)
-                            : const Icon(Icons.visibility),
-                      ),
-                    ),
-                    obscureText: isObsecure,
+                TextFieldWidget(
+                  text: 'Password',
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isObsecure = !isObsecure;
+                      });
+                    },
+                    icon: isObsecure
+                        ? const Icon(Icons.visibility_off)
+                        : const Icon(Icons.visibility),
                   ),
+                  obscureText: isObsecure,
                 ),
                 const SizedBox(height: 20),
                 Row(
