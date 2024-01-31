@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:travel_app/controller/auth_controller.dart';
 import 'package:travel_app/ui/home.dart';
 import 'package:travel_app/ui/introduction.dart';
 import 'package:travel_app/ui/login.dart';
@@ -8,13 +9,17 @@ import 'package:travel_app/ui/splashscreen.dart';
 
 Future main() async {
   await dotenv.load(fileName: '.env');
-  runApp(const MyApp());
+
+  bool isAuthenticated = await AuthController().isAuthenticated();
+
+  runApp(MyApp(isAuthenticated: isAuthenticated));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.isAuthenticated});
 
-  // This widget is the root of your application.
+  final bool isAuthenticated;
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -24,7 +29,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'flutter demo',
             debugShowCheckedModeBanner: false,
-            initialRoute: '/intro',
+            initialRoute: isAuthenticated ? '/' : '/intro',
             routes: {
               '/': (context) => const Home(),
               '/splash': (context) => const SplashScreen(),
