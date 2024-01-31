@@ -1,4 +1,7 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_app/controller/auth_controller.dart';
+import 'package:travel_app/widget/text_field_widget.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -9,6 +12,41 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   bool isObsecure = true;
+
+  TextEditingController name = TextEditingController(),
+      email = TextEditingController(),
+      password = TextEditingController(),
+      konfirmasiPassword = TextEditingController();
+
+  bool loading = false;
+
+  saveRegis() {
+    loading = true;
+    AuthController()
+        .registerProses(
+            name.text, email.text, password.text, konfirmasiPassword.text)
+        .then((value) {
+      if (value != null) {
+        loading = false;
+        AwesomeDialog(
+          context: context,
+          title: "${value.message}",
+          desc: "Register Berhasil as ${email.text}",
+          dialogType: DialogType.success,
+          btnOkOnPress: () => Navigator.pushNamedAndRemoveUntil(
+              context, "/login", (route) => false),
+        ).show();
+      } else {
+        loading = false;
+        AwesomeDialog(
+          context: context,
+          title: "Failed",
+          desc: "Register Gagal",
+          dialogType: DialogType.error,
+        ).show();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,96 +68,36 @@ class _RegisterState extends State<Register> {
                     width: 200,
                   ),
                 ),
-                Container(
-                  child: const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Name',
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.yellow,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
+                TextFieldWidget(
+                  controller: name,
+                  text: 'nama',
+                ),
+                const SizedBox(height: 25),
+                TextFieldWidget(
+                  controller: email,
+                  text: 'Email',
+                ),
+                const SizedBox(height: 25),
+                TextFieldWidget(
+                  controller: password,
+                  text: 'password',
+                  obscureText: isObsecure,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isObsecure = !isObsecure;
+                      });
+                    },
+                    icon: isObsecure
+                        ? const Icon(Icons.visibility_off)
+                        : const Icon(Icons.visibility),
                   ),
                 ),
                 const SizedBox(height: 25),
-                Container(
-                  child: const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.yellow,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 25),
-                Container(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      focusedBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.yellow,
-                        ),
-                      ),
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isObsecure = !isObsecure;
-                          });
-                        },
-                        icon: isObsecure
-                            ? const Icon(Icons.visibility_off)
-                            : const Icon(Icons.visibility),
-                      ),
-                    ),
-                    obscureText: isObsecure,
-                  ),
-                ),
-                const SizedBox(height: 25),
-                Container(
-                  child: const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Konfirmasi Password',
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.yellow,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                    obscureText: true,
-                  ),
+                TextFieldWidget(
+                  controller: konfirmasiPassword,
+                  text: 'Konfirmasi Password',
+                  obscureText: true,
                 ),
                 const SizedBox(height: 25),
                 ElevatedButton(
@@ -153,14 +131,16 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                   ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Submit',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  onPressed: () => saveRegis(),
+                  child: loading
+                      ? const CircularProgressIndicator()
+                      : const Text(
+                          'Submit',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold),
+                        ),
                 ),
               ],
             ),

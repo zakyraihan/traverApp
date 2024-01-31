@@ -1,4 +1,6 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_app/controller/auth_controller.dart';
 import 'package:travel_app/widget/text_field_widget.dart';
 
 class Login extends StatefulWidget {
@@ -10,6 +12,36 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool isObsecure = true;
+
+  TextEditingController email = TextEditingController(),
+      password = TextEditingController();
+
+  bool loading = false;
+
+  saveLogin() {
+    loading = true;
+    AuthController().loginProses(email.text, password.text).then((value) {
+      if (value != null) {
+        loading = false;
+        AwesomeDialog(
+          context: context,
+          title: "Succes",
+          desc: "Login as ${email.text}",
+          dialogType: DialogType.success,
+          btnOkOnPress: () =>
+              Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false),
+        ).show();
+      } else {
+        loading = false;
+        AwesomeDialog(
+          context: context,
+          title: "Failed",
+          desc: "Login Gagal",
+          dialogType: DialogType.error,
+        ).show();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +64,12 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 TextFieldWidget(
+                  controller: email,
                   text: 'Email',
                 ),
                 const SizedBox(height: 25),
                 TextFieldWidget(
+                  controller: password,
                   text: 'Password',
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -99,14 +133,16 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Sign In',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  onPressed: () => saveLogin(),
+                  child: loading
+                      ? const CircularProgressIndicator()
+                      : const Text(
+                          'Sign In',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold),
+                        ),
                 ),
                 const SizedBox(height: 25),
                 Row(
