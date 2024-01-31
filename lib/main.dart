@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:travel_app/ui/home.dart';
 import 'package:travel_app/ui/introduction.dart';
 import 'package:travel_app/ui/login.dart';
 import 'package:travel_app/ui/register.dart';
 import 'package:travel_app/ui/splashscreen.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: '.env');
   runApp(const MyApp());
 }
 
