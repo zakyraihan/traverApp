@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:travel_app/controller/auth_controller.dart';
+import 'package:travel_app/ui/forgot_password.dart';
 import 'package:travel_app/ui/home.dart';
 import 'package:travel_app/ui/introduction.dart';
 import 'package:travel_app/ui/login.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
               '/intro': (context) => const Introduction(),
               '/register': (context) => const Register(),
               '/login': (context) => const Login(),
+              '/lupapw': (context) => const LupaPasswordScreen(),
             },
           );
         }

@@ -52,7 +52,8 @@ class AuthController {
         log(response.body);
         Login dataRes = loginFromJson(response.body.toString());
 
-        String authToken = dataRes.data.accessToken; // get token dari DataLogin
+        String authToken =
+            dataRes.data.accessToken; // mengambil token dari model Login
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('authToken', authToken); // set Token
 
@@ -77,5 +78,31 @@ class AuthController {
     await prefs.remove('authToken');
 
     Navigator.pushNamedAndRemoveUntil(context, '/intro', (route) => false);
+  }
+
+  Future lupaPasswordProses(String email) async {
+    try {
+      String url = '${dotenv.env['IP']}/auth/lupa-password';
+      Uri urlData = Uri.parse(url);
+
+      Map data = {
+        "email": email,
+      };
+
+      var body = json.encode(data);
+
+      final response = await http.post(urlData,
+          headers: {"Content-Type": "application/json"}, body: body);
+
+      if (response.statusCode == 201) {
+        log(response.body);
+        LupaPassword dataRes = lupaPasswordFromJson(response.body.toString());
+        return dataRes;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      log('Error -> $e');
+    }
   }
 }

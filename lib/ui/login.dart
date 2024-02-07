@@ -20,11 +20,12 @@ class _LoginState extends State<Login> {
   bool loading = false;
 
   saveLogin() {
-    loading = true;
+    setState(() {
+      loading = true;
+    });
 
     AuthController().loginProses(email.text, password.text).then((value) {
       if (value != null) {
-        loading = false;
         AwesomeDialog(
           context: context,
           title: "Success",
@@ -34,7 +35,9 @@ class _LoginState extends State<Login> {
               Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false),
         ).show();
       } else {
-        loading = false;
+        setState(() {
+          loading = false;
+        });
         AwesomeDialog(
           context: context,
           title: "Failed",
@@ -99,7 +102,7 @@ class _LoginState extends State<Login> {
                       ],
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.pushNamed(context, '/lupapw'),
                       child: const Text('Forgot Password'),
                     ),
                   ],
