@@ -18,8 +18,15 @@ class _LoginState extends State<Login> {
 
   bool loading = false;
 
+  // isLogin() async {
+  //   final prefs = await SharedPreferences.getInstance();
+
+  // }
+
   saveLogin() {
-    loading = true;
+    setState(() {
+      loading = true;
+    });
     AuthController().loginProses(email.text, password.text).then((value) {
       if (value != null) {
         loading = false;
@@ -32,7 +39,9 @@ class _LoginState extends State<Login> {
               Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false),
         ).show();
       } else {
-        loading = false;
+        setState(() {
+          loading = false;
+        });
         AwesomeDialog(
           context: context,
           title: "Failed",

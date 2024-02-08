@@ -1,11 +1,24 @@
-// ignore_for_file: avoid_unnecessary_containers
+// ignore_for_file: avoid_unnecessary_containers, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Introduction extends StatelessWidget {
+class Introduction extends StatefulWidget {
   const Introduction({super.key});
+
+  @override
+  State<Introduction> createState() => _IntroductionState();
+}
+
+class _IntroductionState extends State<Introduction> {
+  
+  saveAction() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('ISINTRO', true);
+    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -217,10 +230,8 @@ class Introduction extends StatelessWidget {
             'Done',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
           ),
-          onDone: () => Navigator.pushNamedAndRemoveUntil(
-              context, '/login', (route) => true),
-          onSkip: () => Navigator.pushNamedAndRemoveUntil(
-              context, '/login', (route) => true),
+          onDone: () => saveAction(),
+          onSkip: () => saveAction(),
           dotsDecorator: DotsDecorator(
             size: const Size.square(10.0),
             activeSize: const Size(50.0, 10.0),

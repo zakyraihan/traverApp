@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_app/model/model.dart';
 
 class AuthController {
@@ -39,7 +41,6 @@ class AuthController {
 
   Future loginProses(String email, String password) async {
     try {
-      // String url = '${dotenv.env['IP']}/auth/login';
       Uri urlData = Uri.parse('$url/auth/login');
 
       Map data = {
@@ -54,13 +55,28 @@ class AuthController {
 
       if (response.statusCode == 201) {
         log(response.body);
+
         Login loginRes = loginFromJson(response.body.toString());
-        return loginRes;
+
+        String token = loginRes.data.accessToken;
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('TOKEN', token);
+        log(token);
+
+        return token;
       } else {
         throw Exception();
       }
     } catch (e) {
       log('Error -> $e');
     }
+  }
+
+  Future logOut(context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('TOKEN');
+
+    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
   }
 }
