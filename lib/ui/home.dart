@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:travel_app/controller/auth_controller.dart';
+import 'package:travel_app/controller/home_controller.dart';
+import 'package:travel_app/model/model.dart';
 import 'package:travel_app/widget/favorite_widget.dart';
 import 'package:travel_app/widget/judul_widget.dart';
 import 'package:travel_app/widget/kategori_widget.dart';
@@ -13,6 +17,31 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<DataKategori> data = [];
+
+  getData() {
+    HomeController().getKategori().then((value) {
+      try {
+        if (value != null) {
+          log(value);
+          setState(() {
+            data = value;
+          });
+        } else {
+          return null;
+        }
+      } catch (e) {
+        log('error -> $e');
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   void logOut() {
     AuthController().logOut(context);
   }
@@ -31,7 +60,7 @@ class _HomeState extends State<Home> {
                   CircleAvatar(),
                   SizedBox(width: 10),
                   Text(
-                    'Hello, shirin',
+                    'Hello, All',
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
@@ -75,19 +104,28 @@ class _HomeState extends State<Home> {
                     link: 'see all',
                     onPressed: () => print('hello'),
                   ),
-                  const SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        KategoriWidget(
-                            name: 'assets/img/fb.png', text: 'beach'),
-                        KategoriWidget(
-                            name: 'assets/img/fb.png', text: 'beach'),
-                        KategoriWidget(
-                            name: 'assets/img/fb.png', text: 'beach'),
-                      ],
-                    ),
+                  FutureBuilder(
+                    future: HomeController().getKategori(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      } else if (snapshot.hasData) {
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Wrap(
+                            spacing: 20,
+                            children: List.generate(data.length, (index) {
+                              return KategoriWidget(
+                                img: data[index].gambarKategori,
+                                name: data[index].namaKategori,
+                              );
+                            }).toList(),
+                          ),
+                        );
+                      } else {
+                        return const Scaffold();
+                      }
+                    },
                   ),
                   const SizedBox(height: 20),
                   JudulWidget(
@@ -106,13 +144,13 @@ class _HomeState extends State<Home> {
                           tempat: 'bali, indonesia',
                         ),
                         FavoriteWidget(
-                          img: 'assets/img/page1.jpg',
+                          img: 'assets/img/page2.jpg',
                           nama: 'kuta beach',
                           rating: 4.5,
                           tempat: 'bali, indonesia',
                         ),
                         FavoriteWidget(
-                          img: 'assets/img/page1.jpg',
+                          img: 'assets/img/page3.jpg',
                           nama: 'kuta beach',
                           rating: 4.5,
                           tempat: 'bali, indonesia',
@@ -137,5 +175,11 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    getData();
+    super.dispose();
   }
 }

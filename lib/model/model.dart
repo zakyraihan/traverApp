@@ -1,4 +1,6 @@
 import 'dart:convert';
 
-part 'register.dart';
+part 'kategori.dart';
 part 'login.dart';
+part 'pagination.dart';
+part 'register.dart';

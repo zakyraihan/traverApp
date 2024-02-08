@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
               '/intro': (context) => const Introduction(),
               '/splash': (context) => const SplashScreen(),
               '/login': (context) => const Login(),
-              '/register': (context) => const Register()
+              '/register': (context) => const Register(),
             },
           );
         }

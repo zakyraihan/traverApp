@@ -63,7 +63,10 @@ class FavoriteWidget extends StatelessWidget {
                     const Icon(Icons.star, color: Colors.white),
                     const Icon(Icons.star, color: Colors.white),
                     const Icon(Icons.star, color: Colors.white),
-                    Text('$rating')
+                    Text(
+                      '$rating',
+                      style: const TextStyle(color: Colors.white),
+                    )
                   ],
                 ),
               ],

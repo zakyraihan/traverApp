@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class KategoriWidget extends StatelessWidget {
-  const KategoriWidget({super.key, required this.name, required this.text});
+  const KategoriWidget({super.key, required this.name, required this.img});
   final String name;
-  final String text;
+  final String img;
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +16,9 @@ class KategoriWidget extends StatelessWidget {
         padding: const EdgeInsets.all(5.0),
         child: Row(
           children: [
-            Image.asset(name),
+            Image.network(img),
             const SizedBox(width: 5),
-            Text(text),
+            Text(name),
           ],
         ),
       ),
