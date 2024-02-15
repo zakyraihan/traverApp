@@ -11,24 +11,23 @@ class ApiService {
   final String token;
   ApiService(this.token);
 
-  Future<Kategori> getData(String token) async {
+  Future<Kategori> fetchKategories(String token) async {
     try {
-      Uri url = Uri.parse('$_baseUrl/kategori/list');
-
       final response = await http.get(
-        url,
+        Uri.parse('$_baseUrl/kategori/list'),
         headers: {'Authorization': 'Bearer $token'},
       );
 
       if (response.statusCode == 200) {
         log(response.body);
-        return Kategori.fromJson(json.decode(response.body));
+        return Kategori.fromJson(json.decode(response.body.toString()));
       } else {
-        throw Exception('gagal mengambil kategori data');
+        log(response.body);
+        throw Exception('Failed To Fetch Kategori data');
       }
     } catch (e) {
-      log('error -> $e');
-      throw Exception('gagal mengambil kategori data');
+      log('Error -> $e');
+      throw Exception('Failed To Fetch Kategori Data');
     }
   }
 }

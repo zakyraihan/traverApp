@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/common/styles.dart';
 
 class KategoriWidget extends StatelessWidget {
   const KategoriWidget({super.key, required this.name, required this.img});
@@ -18,7 +19,10 @@ class KategoriWidget extends StatelessWidget {
           children: [
             Image.network(img),
             const SizedBox(width: 5),
-            Text(name),
+            Text(
+              name,
+              style: style(Colors.black, FontWeight.w500, 16),
+            ),
           ],
         ),
       ),

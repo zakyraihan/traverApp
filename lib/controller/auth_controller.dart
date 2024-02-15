@@ -64,6 +64,12 @@ class AuthController {
     }
   }
 
+  Future getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('authToken');
+    return token;
+  }
+
   // ketika di reload dia tidak akan ke login lagi
   Future<bool> isAuthenticated() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
