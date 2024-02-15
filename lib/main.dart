@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_app/ui/home.dart';
-import 'package:travel_app/ui/introduction.dart';
-import 'package:travel_app/ui/login.dart';
-import 'package:travel_app/ui/register.dart';
-import 'package:travel_app/ui/splashscreen.dart';
+import 'package:travel_app/ui/introduction%20screen/introduction.dart';
+import 'package:travel_app/ui/login%20page/login.dart';
+import 'package:travel_app/ui/register%20page/register.dart';
+import 'package:travel_app/ui/splash%20screen/splashscreen.dart';
 
 Future main() async {
   await dotenv.load(fileName: '.env');
@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
                     ? '/login'
                     : '/',
             routes: {
-              '/': (context) => const Home(),
+              '/': (context) => Home(),
               '/intro': (context) => const Introduction(),
               '/splash': (context) => const SplashScreen(),
               '/login': (context) => const Login(),
