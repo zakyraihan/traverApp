@@ -28,7 +28,7 @@ class AuthController {
           headers: {"Content-Type": "application/json"}, body: body);
 
       if (response.statusCode == 201) {
-        log(response.body);
+        // log(response.body);
         Register dataResponse = registerFromJson(response.body.toString());
         return dataResponse;
       } else {
@@ -54,19 +54,43 @@ class AuthController {
           headers: {"Content-Type": "application/json"}, body: body);
 
       if (response.statusCode == 201) {
-        log(response.body);
+        // log(response.body);
 
-        Login loginRes = loginFromJson(response.body.toString());
+        Login loginRes = loginFromJson(response.body);
 
-        String token = loginRes.data.accessToken;
+        // String token = loginRes.data.accessToken;
 
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString('TOKEN', token);
-        log(token);
+        prefs.setString('TOKEN', response.body);
+        // log(response.body);
 
-        return token;
+        return loginRes;
       } else {
         throw Exception();
+      }
+    } catch (e) {
+      log('Error -> $e');
+    }
+  }
+
+  Future forgotPassword(String email) async {
+    try {
+      Uri urlData = Uri.parse('$url/auth/lupa-password');
+
+      Map data = {
+        "email": email,
+      };
+
+      var body = json.encode(data);
+
+      final response = await http.post(urlData,
+          headers: {"Content-Type": "application/json"}, body: body);
+
+      if (response.statusCode == 201) {
+        ForgotPassword forgotRes = forgotPasswordFromJson(response.body);
+        return forgotRes;
+      } else {
+        return null;
       }
     } catch (e) {
       log('Error -> $e');

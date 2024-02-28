@@ -1,7 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_app/controller/auth_controller.dart';
-import 'package:travel_app/widget/text_field_widget.dart';
+import 'package:travel_app/widget/textfield%20auth%20widget/text_field_widget.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -21,13 +21,17 @@ class _RegisterState extends State<Register> {
   bool loading = false;
 
   saveRegis() {
-    loading = true;
+    setState(() {
+      loading = true;
+    });
     AuthController()
         .registerProses(
             name.text, email.text, password.text, konfirmasiPassword.text)
         .then((value) {
       if (value != null) {
-        loading = false;
+        setState(() {
+          loading = false;
+        });
         AwesomeDialog(
           context: context,
           title: "${value.message}",
@@ -37,7 +41,9 @@ class _RegisterState extends State<Register> {
               context, "/login", (route) => false),
         ).show();
       } else {
-        loading = false;
+        setState(() {
+          loading = false;
+        });
         AwesomeDialog(
           context: context,
           title: "Failed",
@@ -133,13 +139,14 @@ class _RegisterState extends State<Register> {
                   ),
                   onPressed: () => saveRegis(),
                   child: loading
-                      ? const CircularProgressIndicator()
+                      ? const CircularProgressIndicator(color: Colors.white)
                       : const Text(
                           'Submit',
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 19,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.black,
+                            fontSize: 19,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                 ),
               ],

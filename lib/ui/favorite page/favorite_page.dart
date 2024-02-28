@@ -14,7 +14,9 @@ class _FavoritePageState extends State<FavoritePage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Center(
-          child: Text("Favorite Page"),
+          child: Text(
+            "Favorite Page",
+          ),
         )
       ],
     );

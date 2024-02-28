@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/controller/auth_controller.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -10,10 +11,18 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Center(
+        IconButton(
+            onPressed: () {
+              setState(() {
+                AuthController().logOut(context);
+              });
+            },
+            icon: const Icon(Icons.logout)),
+        const Center(
           child: Text("Profile Page"),
         )
       ],

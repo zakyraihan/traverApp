@@ -1,7 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_app/controller/auth_controller.dart';
-import 'package:travel_app/widget/text_field_widget.dart';
+import 'package:travel_app/widget/textfield%20auth%20widget/text_field_widget.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -29,7 +29,9 @@ class _LoginState extends State<Login> {
     });
     AuthController().loginProses(email.text, password.text).then((value) {
       if (value != null) {
-        loading = false;
+        setState(() {
+          loading = false;
+        });
         AwesomeDialog(
           context: context,
           title: "Succes",
@@ -106,7 +108,8 @@ class _LoginState extends State<Login> {
                       ],
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () =>
+                          Navigator.pushNamed(context, '/forgot-password'),
                       child: const Text('Forgot Password'),
                     ),
                   ],
