@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PopularWidget extends StatelessWidget {
   const PopularWidget({
@@ -73,10 +74,18 @@ class PopularWidget extends StatelessWidget {
                 const SizedBox(height: 5),
                 Row(
                   children: [
-                    const Icon(Icons.star),
-                    const Icon(Icons.star),
-                    const Icon(Icons.star),
-                    Text('$rating'),
+                    Icon(Icons.star, color: Colors.yellow.shade700),
+                    Icon(Icons.star, color: Colors.yellow.shade700),
+                    Icon(Icons.star, color: Colors.yellow.shade700),
+                    Icon(Icons.star, color: Colors.yellow.shade700),
+                    Icon(Icons.star, color: Colors.yellow.shade700),
+                    Text(
+                      '$rating',
+                      style: GoogleFonts.poppins(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10),

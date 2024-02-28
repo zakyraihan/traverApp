@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_app/common/introduction%20screen/introduction.dart';
 import 'package:travel_app/common/splash%20screen/splashscreen.dart';
+import 'package:travel_app/ui/detail%20page/detail_page.dart';
 import 'package:travel_app/ui/forgot%20password/forgot_password_page.dart';
 import 'package:travel_app/ui/home.dart';
 import 'package:travel_app/ui/login%20page/login.dart';
@@ -62,6 +63,7 @@ class _MyAppState extends State<MyApp> {
               '/login': (context) => const Login(),
               '/register': (context) => const Register(),
               '/forgot-password': (context) => const ForgotPassword(),
+              '/detail-page': (context) => const DetailPage(),
             },
           );
         }

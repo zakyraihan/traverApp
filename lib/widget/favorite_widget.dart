@@ -24,81 +24,79 @@ class _FavoriteWisataWidgetState extends State<FavoriteWisataWidget> {
   bool isFav = false;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        width: 170,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage('${widget.img}'),
-            fit: BoxFit.cover,
-          ),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10),
-          ),
-          color: Colors.green,
+    return Container(
+      width: 170,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage('${widget.img}'),
+          fit: BoxFit.cover,
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isFav = !isFav;
-                        });
-                      },
-                      icon: Icon(Icons.favorite,
-                          color: isFav ? Colors.red : Colors.grey),
-                    ),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(10),
+        ),
+        color: Colors.green,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isFav = !isFav;
+                      });
+                    },
+                    icon: Icon(Icons.favorite,
+                        color: isFav ? Colors.red : Colors.grey),
                   ),
                 ),
               ),
-              const SizedBox(height: 100),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('${widget.nama}',
-                      style: const TextStyle(color: Colors.white)),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.place,
-                        color: Colors.white,
-                      ),
-                      SizedBox(
-                        width: 110,
-                        child: Text(
-                          '${widget.tempat}',
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Icon(Icons.star, color: Colors.white),
-                      const Icon(Icons.star, color: Colors.white),
-                      const Icon(Icons.star, color: Colors.white),
-                      const Icon(Icons.star, color: Colors.white),
-                      Text(
-                        '${widget.rating}',
+            ),
+            const SizedBox(height: 100),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('${widget.nama}',
+                    style: const TextStyle(color: Colors.white)),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.place,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 110,
+                      child: Text(
+                        '${widget.tempat}',
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(color: Colors.white),
-                      )
-                    ],
-                  ),
-                ],
-              )
-            ],
-          ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.star, color: Colors.yellow.shade700),
+                    Icon(Icons.star, color: Colors.yellow.shade700),
+                    Icon(Icons.star, color: Colors.yellow.shade700),
+                    Icon(Icons.star, color: Colors.yellow.shade700),
+                    Icon(Icons.star, color: Colors.yellow.shade700),
+                    Text(
+                      '${widget.rating}',
+                      style: const TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );

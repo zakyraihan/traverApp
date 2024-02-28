@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
 
               JudulWidget(
                   onPressed: () {}, judul: 'Choose Kategory', link: 'See All'),
-
+              const SizedBox(height: 5),
               FutureBuilder(
                 future: HomeController().getKategori(),
                 builder: (context, snapshot) {
@@ -138,9 +138,9 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () => (),
                 link: 'See All',
               ),
-
+              const SizedBox(height: 5),
               FutureBuilder(
-                future: HomeController().getWisata(),
+                future: HomeController().getFavorite(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     List<WisataList> data = snapshot.data;
@@ -151,11 +151,18 @@ class _HomePageState extends State<HomePage> {
                         spacing: 10,
                         children: List.generate(
                           data.length,
-                          (index) => FavoriteWisataWidget(
-                            img: data[index].gambarWisata,
-                            nama: data[index].namaWisata,
-                            rating: data[index].ratingWisata,
-                            tempat: data[index].lokasiWisata,
+                          (index) => GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              '/detail-page',
+                              arguments: data[index],
+                            ),
+                            child: FavoriteWisataWidget(
+                              img: data[index].gambarWisata,
+                              nama: data[index].namaWisata,
+                              rating: data[index].ratingWisata,
+                              tempat: data[index].lokasiWisata,
+                            ),
                           ),
                         ),
                       ),
@@ -176,8 +183,6 @@ class _HomePageState extends State<HomePage> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     List<WisataList> data = snapshot.data;
-                    print(data.first.gambarWisata);
-
                     return SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Wrap(
@@ -185,12 +190,19 @@ class _HomePageState extends State<HomePage> {
                           data.length,
                           (index) => Padding(
                             padding: const EdgeInsets.only(top: 13),
-                            child: PopularWidget(
-                              img: data[index].gambarWisata,
-                              tempat: data[index].lokasiWisata,
-                              desc: data[index].deskripsiWisata,
-                              rating: data[index].ratingWisata,
-                              harga: data[index].hargaWisata,
+                            child: GestureDetector(
+                              onTap: () => Navigator.pushNamed(
+                                context,
+                                '/detail-page',
+                                arguments: data[index],
+                              ),
+                              child: PopularWidget(
+                                img: data[index].gambarWisata,
+                                tempat: data[index].lokasiWisata,
+                                desc: data[index].deskripsiWisata,
+                                rating: data[index].ratingWisata,
+                                harga: data[index].hargaWisata,
+                              ),
                             ),
                           ),
                         ),

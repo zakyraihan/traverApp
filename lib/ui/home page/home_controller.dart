@@ -37,7 +37,26 @@ class HomeController {
     }
   }
 
-  Future getWisata() async {
+  Future getFavorite() async {
+    await Future.delayed(const Duration(seconds: 2));
+    String url = "${dotenv.env['IP']}/wisata/list?favorit=true";
+    Uri urlData = Uri.parse(url);
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    Login dataUser = loginFromJson(prefs.getString('TOKEN').toString());
+    String token = 'Bearer ${dataUser.data.accessToken}';
+
+    final response = await http.get(urlData, headers: {'Authorization': token});
+
+    if (response.statusCode == 200) {
+      Wisata data = wisataFromJson(response.body);
+      return data.data;
+    } else {
+      return null;
+    }
+  }
+
+   Future getWisata() async {
     await Future.delayed(const Duration(seconds: 2));
     String url = "${dotenv.env['IP']}/wisata/list";
     Uri urlData = Uri.parse(url);
