@@ -4,10 +4,10 @@ import 'package:shimmer/shimmer.dart';
 import 'package:travel_app/controller/auth_controller.dart';
 import 'package:travel_app/model/model.dart';
 import 'package:travel_app/ui/home%20page/home_controller.dart';
-import 'package:travel_app/widget/favorite%20widget/favorite_widget.dart';
-import 'package:travel_app/widget/judul%20widget/judul_widget.dart';
-import 'package:travel_app/widget/kategori%20widget/kategori_widget.dart';
-import 'package:travel_app/widget/popular%20wisata%20widget/popular_widget.dart';
+import 'package:travel_app/widget/favorite_widget.dart';
+import 'package:travel_app/widget/judul_widget.dart';
+import 'package:travel_app/widget/kategori_widget.dart';
+import 'package:travel_app/widget/popular_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
