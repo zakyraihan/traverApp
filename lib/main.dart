@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travel_app/common/introduction%20screen/introduction.dart';
-import 'package:travel_app/common/splash%20screen/splashscreen.dart';
+import 'package:travel_app/ui/booking%20page/boking_date.dart';
+import 'package:travel_app/ui/booking%20page/detail_booking.dart';
 import 'package:travel_app/ui/detail%20page/detail_page.dart';
 import 'package:travel_app/ui/forgot%20password/forgot_password_page.dart';
 import 'package:travel_app/ui/home.dart';
+import 'package:travel_app/ui/introduction%20screen/introduction.dart';
 import 'package:travel_app/ui/login%20page/login.dart';
 import 'package:travel_app/ui/register%20page/register.dart';
+import 'package:travel_app/ui/splash%20screen/splashscreen.dart';
 
 Future main() async {
   await dotenv.load(fileName: '.env');
@@ -64,6 +66,8 @@ class _MyAppState extends State<MyApp> {
               '/register': (context) => const Register(),
               '/forgot-password': (context) => const ForgotPassword(),
               '/detail-page': (context) => const DetailPage(),
+              '/booking-date': (context) => const BookingDate(),
+              '/booking-detail': (context) => const BookingDetail(),
             },
           );
         }
