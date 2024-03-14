@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:travel_app/controller/auth_controller.dart';
+import 'package:travel_app/ui/auth/controller/auth_controller.dart';
 import 'package:travel_app/model/model.dart';
 import 'package:travel_app/ui/home%20page/home_controller.dart';
 import 'package:travel_app/widget/favorite_widget.dart';

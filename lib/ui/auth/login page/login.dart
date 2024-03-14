@@ -1,6 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_app/controller/auth_controller.dart';
+import 'package:travel_app/ui/auth/controller/auth_controller.dart';
 import 'package:travel_app/widget/text_field_widget.dart';
 
 class Login extends StatefulWidget {

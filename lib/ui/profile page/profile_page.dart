@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/controller/auth_controller.dart';
+import 'package:travel_app/ui/auth/controller/auth_controller.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

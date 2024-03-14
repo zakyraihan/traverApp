@@ -10,14 +10,23 @@ class BookingDetail extends StatefulWidget {
 class BookingDetailState extends State<BookingDetail> {
   TextEditingController nama = TextEditingController(),
       contact = TextEditingController(),
-      jumlah = TextEditingController();
+      jumlah = TextEditingController(text: 1.toString());
 
   int total = 0;
+  // String tanggal = '';
+
+  @override
+  void didChangeDependencies() {
+    final data = ModalRoute.of(context)!.settings.arguments as Map;
+    total = data['hargawisata'];
+
+    print(data);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
     final data = ModalRoute.of(context)!.settings.arguments as Map;
-
     var lebar = MediaQuery.of(context).size.width;
 
     final int harga = data['hargawisata'];
@@ -91,7 +100,7 @@ class BookingDetailState extends State<BookingDetail> {
                         onChanged: (value) {
                           if (value.isEmpty) {
                             setState(() {
-                              total = 0;
+                              total = harga;
                             });
                           } else {
                             calculate(int.parse(value));
@@ -138,7 +147,20 @@ class BookingDetailState extends State<BookingDetail> {
                     ],
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      '/payment-methods',
+                      arguments: {
+                        'id': data['id'],
+                        'namawisata': data['namawisata'],
+                        'hargawisata': data['hargawisata'],
+                        'nama': nama.text,
+                        'tgl': data['tanggal'],
+                        'jumlah': jumlah.text,
+                        'contact': contact.text,
+                        'total': total,
+                      },
+                    ),
                     child: Container(
                       width: lebar * 0.40,
                       height: 60,

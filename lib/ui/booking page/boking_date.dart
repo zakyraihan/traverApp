@@ -9,12 +9,11 @@ class BookingDate extends StatefulWidget {
 }
 
 class _BookingDateState extends State<BookingDate> {
+  DateTime? tanggal;
+  String? tgl;
   @override
   Widget build(BuildContext context) {
     final data = ModalRoute.of(context)!.settings.arguments as Map;
-
-    DateTime? tanggal;
-    String? tgl;
 
     var lebar = MediaQuery.of(context).size.width;
 
@@ -46,11 +45,16 @@ class _BookingDateState extends State<BookingDate> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: lebar * 0.40,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      border: Border.all(),
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      width: lebar * 0.40,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Center(child: Text('Back')),
                     ),
                   ),
                   InkWell(
@@ -58,8 +62,9 @@ class _BookingDateState extends State<BookingDate> {
                       context,
                       '/booking-detail',
                       arguments: {
-                        'hargawisata': data['hargawisata'], // Replace 'hargawisata' with the appropriate key from your data map
-                        // Add other arguments if needed
+                        'id': data['id'],
+                        'hargawisata': data['hargawisata'],
+                        'tanggal': tgl,
                       },
                     ),
                     child: Container(
@@ -67,6 +72,7 @@ class _BookingDateState extends State<BookingDate> {
                       height: 60,
                       decoration: const BoxDecoration(
                         color: Colors.yellow,
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
                       child: const Center(
                         child: Text('Confirm'),
